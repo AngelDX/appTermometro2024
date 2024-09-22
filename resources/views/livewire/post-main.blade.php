@@ -9,7 +9,7 @@
             <x-input placeholder="Buscar registro" wire:model.live="search"/>
             <x-button wire:click="create()">Nuevo</x-button>
                 @if($isOpen)
-                    @include('livewire.manager-create')
+                    @include('livewire.post-create')
                 @endif
         </div>
         <!--Tabla lista de items   -->
@@ -40,8 +40,8 @@
                   <td class="px-6 py-4">{{$item->user->name}}</td>
                   <td class="px-6 py-4">{{$item->church->name}}</td>
                   <td class="px-6 py-4 flex gap-1">
-                    <button class="bg-cyan-800 w-8 h-8 rounded-full text-white text-xl hover:bg-cyan-500"><i class="fa-solid fa-file-pen"></i></button>
-                    <button class="bg-red-800 w-8 h-8 rounded-full text-white text-xl hover:bg-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                    <button wire:click="edit({{$item}})" class="bg-cyan-800 w-8 h-8 rounded-full text-white text-xl hover:bg-cyan-500"><i class="fa-solid fa-file-pen"></i></button>
+                    <button wire:click="$dispatch('deleteItem',{{$item}})" class="bg-red-800 w-8 h-8 rounded-full text-white text-xl hover:bg-red-500"><i class="fa-solid fa-trash-can"></i></button>
                   </td>
                 </tr>
                 @endforeach
@@ -59,4 +59,29 @@
 
         </div>
       </div>
+      @push('js')
+        <script>
+            Livewire.on('deleteItem', (id) => {
+                Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    //alert(id);
+                    Livewire.dispatch('delItem',{post:id});
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+                })
+            });
+        </script>
+      @endpush
 </div>
