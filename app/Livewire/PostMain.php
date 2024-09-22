@@ -45,6 +45,7 @@ class PostMain extends Component{
 
     public function edit(Post $post){
         $this->isOpen=true;
+        $post->published=$post->published?true:false;
         $this->form->fill($post);
     }
 
