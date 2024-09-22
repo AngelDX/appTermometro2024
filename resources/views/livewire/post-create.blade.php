@@ -48,9 +48,8 @@
     </div>
     <div class="flex justify-between mx-2 mb-6">
         <div class="mb-2 md:mr-2 md:mb-0 w-full">
-            <input type="checkbox" wire:model="form.published" value="published"/> ¿Noticia se publicará?
+            <x-checkbox wire:model="form.published" value="published"/> ¿Noticia se publicará?
             <x-input-error for="form.published"/>
-            {{$form->published}}
         </div>
     </div>
     </x-slot>
