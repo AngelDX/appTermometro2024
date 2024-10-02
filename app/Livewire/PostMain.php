@@ -33,13 +33,13 @@ class PostMain extends Component{
         $this->validate();
         $this->form->slug=str_replace(" ","-",$this->form->title);
         $this->form->user_id=Auth::user()->id;
-        Post::updateOrCreate($this->form->all());
-        //if($this->form->id==null){
-        //    Post::create($this->form->all());
-        //}else{
-        //    $post=Post::find($this->form->id);
-        //    $post->update($this->form->all());
-        //}
+        //Post::updateOrCreate($this->form->all());
+        if($this->form->id==null){
+            Post::create($this->form->all());
+        }else{
+            $post=Post::find($this->form->id);
+            $post->update($this->form->all());
+        }
         $this->isOpen=false;
         $this->dispatch('sweetalert',message:'Registro creado');
     }

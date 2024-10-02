@@ -1,11 +1,13 @@
 <?php
 
 use App\Livewire\PostMain;
+use App\Livewire\WebBlog;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('blog',WebBlog::class)->name('blog');
 
 
 Route::middleware([
